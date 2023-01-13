@@ -78,7 +78,7 @@ class DSACAgent(nn.Module):
         return action.numpy(), entropy.numpy()
 
     def calc_policy_loss(self, states, alpha, old_entropy):
-      _, action_probs, log_pis = self.actor_local.evaluate(states)
+      _, action_probs, log_pis = self.actor_local.get_action(states)
       beta = self.beta
       q1 = self.critic1(states)   
       q2 = self.critic2(states)
@@ -109,7 +109,7 @@ class DSACAgent(nn.Module):
         self.alpha = self.log_alpha.exp().detach()
         # update critic
         with torch.no_grad():
-            _, action_probs, log_pis = self.actor_local.evaluate(next_states)
+            _, action_probs, log_pis = self.actor_local.get_action(next_states)
             Q_target1_next = self.critic1_target(next_states)
             Q_target2_next = self.critic2_target(next_states)
             Q_n = (Q_target1_next + Q_target2_next)/2

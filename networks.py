@@ -39,7 +39,7 @@ class Policy(nn.Module): #Actor
         action_probabilities = self.softmax(self.fc3(x))
         return action_probabilities
 
-    def evaluate(self, state, epsilon=1e-7):
+    def get_action(self, state, epsilon=1e-7):
         action_probabilities = self.forward(state)
         dist = Categorical(action_probabilities)
         action = dist.sample().to(state.device)
@@ -49,10 +49,10 @@ class Policy(nn.Module): #Actor
         log_action_probs = torch.log(action_probabilities+z)
         return action.detach().cpu(), action_probabilities, log_action_probs
 
-    def get_action(self, state):
-        dist = Categorical(self.forward(state))
-        action = dist.sample().to(state.device)
-        return action.detach().cpu()
+    #def get_action(self, state):
+    #    dist = Categorical(self.forward(state))
+    #    action = dist.sample().to(state.device)
+    #    return action.detach().cpu()
 
     def greedy_action(self,state, epsilon=1e-7):
         action_probabilities = self.forward(state)
