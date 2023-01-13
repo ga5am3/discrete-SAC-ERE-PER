@@ -112,14 +112,13 @@ def get_config():
     parser.add_argument("--tau", type=float, default=1e-2, help="interpolation parameter, default: 1e-2")
     parser.add_argument("--clip_grad_param", type=float, default=1, help="clip grad param, default:1")
     parser.add_argument("--hidden_size", type=int, default=256, help="Size of Hidden layers, default:256")
-    parser.add_argument("--buffer_size", type=int, default=100_000, help="Buffer size, default: 100000")
     parser.add_argument("--seed", type=int, default=250, help="Seed, default: 250")
     parser.add_argument("--log_video", type=int, default=0, help="Log agent behaviour to wanbd when set to 1, default: 0")
     parser.add_argument("--beta_annealign_params", type=list, default=[0.3, 7000], help="[beta_start, beta_frames]")
     parser.add_argument("--save_every", type=int, default=100, help="Saves the network every x epochs, default: 25")
     parser.add_argument("--batch_size", type=int, default=256, help="Batch size, default: 256")
     parser.add_argument("--project", type=str, default="", help="wandb project")
-    
+
     args = parser.parse_args()
     return args
         
