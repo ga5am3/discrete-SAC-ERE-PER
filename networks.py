@@ -16,7 +16,7 @@ class Critic(nn.Module):
         nn.init.xavier_uniform_(self.fc3.weight)
 
     def forward(self, state):
-        x = F.leaky_relu(self.fc1(x))
+        x = F.leaky_relu(self.fc1(state))
         x = F.relu(self.fc2(x))
         return self.fc3(x)
 
@@ -34,7 +34,7 @@ class Policy(nn.Module): #Actor
         nn.init.xavier_uniform_(self.fc3.weight)
 
     def forward(self, state):
-        x = F.leaky_relu(self.fc1(x))
+        x = F.leaky_relu(self.fc1(state))
         x = F.relu(self.fc2(x))
         action_probabilities = self.softmax(self.fc3(x))
         return action_probabilities
