@@ -60,11 +60,11 @@ class PrioritizedReplay:
         self.pos = (self.pos + 1) % self.capacity
 
         if len(self.memory) < self.capacity:
-            self.memory.extend([(state, action, reward, next_state, done)])
+            self.memory.extend([(state, action, reward, next_state, done, entropy)])
             self.priorities.extend([max_prio])
             return
 
-        self.memory[self.pos] = (state, action, reward, next_state, done)
+        self.memory[self.pos] = (state, action, reward, next_state, done, entropy)
         self.priorities[self.pos] = max_prio
         
     def sample(self, ck=0):
