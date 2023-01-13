@@ -118,6 +118,7 @@ def get_config():
     parser.add_argument("--beta_annealign_params", type=list, default=[0.3, 7000], help="[beta_start, beta_frames]")
     parser.add_argument("--save_every", type=int, default=100, help="Saves the network every x epochs, default: 25")
     parser.add_argument("--batch_size", type=int, default=256, help="Batch size, default: 256")
+    parser.add_argument("--project", type=str, default="", help="wandb project")
     
     args = parser.parse_args()
     return args
