@@ -59,7 +59,7 @@ class DSACAgent(nn.Module):
         for _ in range(num_samples):
             action = env.action_space.sample()
             next_state, reward, done, _ = env.step(action)
-            self.memory.add(state, action, reward, next_state, done)
+            self.memory.add(state, action, reward, next_state, done, 0)
             state = next_state
             if done:
                 state = env.reset()
