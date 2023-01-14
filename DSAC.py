@@ -65,8 +65,8 @@ class DSACAgent(nn.Module):
             if done:
                 state = env.reset()
 
-    def add_exp(self,state, action, reward, next_state, done):
-        self.memory.add(state, action, reward, next_state, done)
+    def add_exp(self,state, action, reward, next_state, done, entropy):
+        self.memory.add(state, action, reward, next_state, done, entropy)
 
     def get_action(self,state):
         state = torch.from_numpy(state).float().to(self.device)

@@ -13,7 +13,14 @@ def train(config, **kwargs):
 
     random.seed(config.seed)
     torch.manual_seed(config.seed)
-    env = gym.env(config.env)
+    env = gym.make(
+    "LunarLander-v2",
+    continuous= False,
+    gravity= -10.0,
+    enable_wind = False,
+    wind_power = 0,
+    turbulence_power = 0,
+)
     
     env.seed(config.seed)
     env.action_space.seed(config.seed)
@@ -23,7 +30,7 @@ def train(config, **kwargs):
     c_k_min = 1500
     max_episode_len = 400
     c_k_min = 2500
-
+    T = max_episode_len * config.episodes * 0.7 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     
     steps = 0
