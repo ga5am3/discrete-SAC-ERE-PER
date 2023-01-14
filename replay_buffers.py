@@ -27,7 +27,7 @@ class ReplayBuffer:
         dones = torch.from_numpy(np.vstack([e.done for e in experiences if e is not None]).astype(np.uint8)).float().to(self.device)
         entropy = torch.from_numpy(np.vstack([e.entropy for e in experiences if e is not None])).float().to(self.device)
         
-        return (states, actions, rewards, next_states, dones, entropy)
+        return (states.to(self.device), actions.to(self.device), rewards, next_states.to(self.device), dones, entropy.to(self.device))
 
     def __len__(self):
         return len(self.memory)
