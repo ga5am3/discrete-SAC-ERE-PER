@@ -15,7 +15,7 @@ class DSACAgent(nn.Module):
         self.state_size = state_size
         self.action_size = action_size
         self.device = device
-        self.gama = params.gamma
+        self.gamma = params.gamma
         self.tau = params.tau
         self.beta = params.beta
         hidden_size = params.hidden_size
