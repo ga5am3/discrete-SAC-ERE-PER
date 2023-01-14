@@ -97,7 +97,7 @@ class DSACAgent(nn.Module):
         states, actions, rewards, next_states, dones, old_entropy = self.memory.sample()
         # update actor
         current_alpha = copy.deepcopy(self.alpha)
-        actor_loss, log_pis, entropy = self.calc_policy_loss(states, current_alpha.to(self.device), old_entropy)
+        actor_loss, log_pis, entropy = self.calc_policy_loss(states.to(self.device), current_alpha.to(self.device), old_entropy)
         self.actor_optimizer.zero_grad()
         actor_loss.backward()
         self.actor_optimizer.step()
