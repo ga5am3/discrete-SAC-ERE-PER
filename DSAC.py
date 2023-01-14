@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import torch.functional as F
+import torch.nn.functional as F
 from torch.nn.utils import clip_grad_norm_
 from networks import Policy, Critic
 import copy
