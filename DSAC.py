@@ -32,16 +32,16 @@ class DSACAgent(nn.Module):
         self.actor_local = Policy(state_size, action_size, hidden_size).to(self.device)
         self.actor_optimizer = optim.Adam(self.actor_local.parameters(), lr=learning_rate)
 
-        self.critic1 = Critic(state_size, action_size, hidden_size, 1)
-        self.critic2 = Critic(state_size, action_size, hidden_size, 2)
+        self.critic1 = Critic(state_size, action_size, hidden_size, 1).to(self.device)
+        self.critic2 = Critic(state_size, action_size, hidden_size, 2).to(self.device)
         
         assert self.critic1.parameters() != self.critic2.parameters()
 
-        self.critic1_target = Critic(state_size, action_size, hidden_size).to(device)
+        self.critic1_target = Critic(state_size, action_size, hidden_size).to(self.device)
         self.critic1_target.load_state_dict(self.critic1.state_dict())
         self.critic1_optimizer = optim.Adam(self.critic1.parameters(), lr=learning_rate)
         
-        self.critic2_target = Critic(state_size, action_size, hidden_size).to(device)
+        self.critic2_target = Critic(state_size, action_size, hidden_size).to(self.device)
         self.critic2_target.load_state_dict(self.critic2.state_dict())
         self.critic2_optimizer = optim.Adam(self.critic1.parameters(), lr=learning_rate)
 
@@ -96,8 +96,8 @@ class DSACAgent(nn.Module):
     def learn(self):
         states, actions, rewards, next_states, dones, old_entropy = self.memory.sample()
         # update actor
-        current_alpha = copy.deepcopy(self.alpha)
-        actor_loss, log_pis, entropy = self.calc_policy_loss(states.to(self.device), current_alpha.to(self.device), old_entropy)
+        current_alpha = copy.deepcopy(self.alpha).to(self.device)
+        actor_loss, log_pis, entropy = self.calc_policy_loss(states, current_alpha, old_entropy)
         self.actor_optimizer.zero_grad()
         actor_loss.backward()
         self.actor_optimizer.step()
